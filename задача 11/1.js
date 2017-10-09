@@ -1,24 +1,37 @@
-var varNum = parseInt(Math.random() * 10);
+var out = document.getElementById('answer'),
+    button = document.getElementById('check'),
+    varNum = parseInt(Math.random() * 10),
+    attempt = 0;
 
-document.getElementById('check').addEventListener( 'click', GameGetNum, false);
+button.addEventListener('click', GameGetNum, false);
 
 function GameGetNum() {
 
-    var out = document.getElementById('answer'),
-        x = parseInt(document.getElementById('findNum').value),
-        y = parseInt(document.getElementById('attempts').innerHTML);
-    console.log(x);
+    // check
+    var x = parseInt(document.getElementById('findNum').value);
 
-    if (y <= 3) {
-        if (x == varNum) {
-            out.innerHTML = 'Ви вгадали';
-        } else if (x > varNum) {
-            out.innerHTML = "Ви ввели число більше ніж потрібно";
-        } else {
-            out.innerHTML = "Ви ввели число менше ніж потрібно";
-        }
-        document.getElementById('attempts').innerHTML = ++y;
+    attempt++;
+    document.getElementById('attempts').innerHTML = attempt;
+
+    if (x == varNum) {
+        // SUCCESS FINISH
+        finishGame(true);
+        return;
+    } else if (x > varNum) {
+        out.innerHTML = "Ви ввели число більше ніж потрібно";
     } else {
-        out.innerHTML = 'ви використали всі спроби';
+        out.innerHTML = "Ви ввели число менше ніж потрібно";
     }
+    // LOSE FINISH
+    if (attempt >= 3) {
+        finishGame();
+        return;
+    }
+
+}
+
+function finishGame(success) {
+    alert(success ? 'вы вгадали' : 'ви використали всі спроби');
+    button.disabled = true;
+    out.innerHTML = "загаданное число: " + varNum;
 }

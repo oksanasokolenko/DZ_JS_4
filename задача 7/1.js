@@ -1,10 +1,22 @@
+var input = document.getElementById('age'),
+    button = document.getElementById('push'),
+    out = document.getElementById('out');
+
+button.addEventListener('click', function () {
+
+    out.innerHTML = checkAge(input.value);
+
+}, false);
+
 function checkAge (age) {
-    if (age >=16) {
-        console.log("Welcome")
+
+    age = parseInt(age);
+
+    if (age >= 16) {
+        return "Welcome";
     }
     else {
-        console.log("вы еще молоды")
+        return "вы еще молоды";
     }
 
 }
-checkAge(15);
